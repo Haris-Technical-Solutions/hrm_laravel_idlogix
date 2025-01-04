@@ -75,6 +75,7 @@ return array(
     'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
     'Paytabscom\\Laravel_paytabs\\' => array($vendorDir . '/paytabscom/laravel_paytabs/src'),
     'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
+    'PHPJasper\\' => array($vendorDir . '/geekcom/phpjasper/src'),
     'Orhanerday\\OpenAi\\' => array($vendorDir . '/orhanerday/open-ai/src'),
     'Obydul\\LaraSkrill\\' => array($vendorDir . '/obydul/laraskrill/src'),
     'Nwidart\\Modules\\' => array($vendorDir . '/nwidart/laravel-modules/src'),

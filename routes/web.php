@@ -181,6 +181,9 @@ Route::group(['middleware' => ['verified']], function () {
             ],
         ],
         function () {
+            //Jasper
+            Route::get('jasper/compile', [\App\Http\Controllers\Jasper\JasperController::class, 'compile']);
+            Route::get('jasper/report/{name}/{ext?}', [\App\Http\Controllers\Jasper\JasperController::class, 'report']);
 
             Route::resource('settings', SettingsController::class);
             Route::post('email-settings', [SettingsController::class, 'saveEmailSettings'])->name('email.settings');

@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command("jasper:compile {file?}",function($file = ""){
+    $this->comment(App\Http\Controllers\Jasper\JasperController::UpdateReports($file));
+});
+
+Artisan::command("jasper:test",function(){
+    $this->comment(App\Http\Controllers\Jasper\JasperController::console());
+});
