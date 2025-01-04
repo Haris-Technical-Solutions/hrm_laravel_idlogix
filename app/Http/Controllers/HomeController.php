@@ -154,10 +154,10 @@ class HomeController extends Controller
                 return view('dashboard.dashboard', compact('arrEvents', 'announcements', 'employees', 'activeJob', 'inActiveJOb', 'meetings', 'countEmployee', 'countUser', 'countTicket', 'countOpenTicket', 'countCloseTicket', 'notClockIns', 'accountBalance', 'totalPayee', 'totalPayer', 'users', 'plan', 'storage_limit'));
             }
         } else {
-            if (!file_exists(storage_path() . "/installed")) {
-                header('location:install');
-                die;
-            } else {
+            // if (!file_exists(storage_path() . "/installed")) {
+            //     header('location:install');
+            //     die;
+            // } else {
                 $settings = Utility::settings();
                 if ($settings['display_landing_page'] == 'on' && \Schema::hasTable('landing_page_settings')) {
                     $plans = Plan::get();
@@ -167,7 +167,7 @@ class HomeController extends Controller
                 } else {
                     return redirect('login');
                 }
-            }
+            // }
         }
     }
 

@@ -53,6 +53,7 @@ class Utility extends Model
         }
 
         $settings = [
+            "display_landing_page" => "off",
             "site_currency" => "USD",
             "site_currency_symbol" => "$",
             "site_currency_symbol_position" => "pre",
@@ -87,7 +88,6 @@ class Utility extends Model
             'leave_status' => '1',
             'contract' => '1',
             "default_language" => "en",
-            "display_landing_page" => "on",
             "ip_restrict" => "on",
             "title_text" => "",
             "footer_text" => "",
@@ -108,7 +108,9 @@ class Utility extends Model
             "dark_logo" => "logo-dark.png",
             "light_logo" => "logo-light.png",
             "contract_prefix" => "#CON",
+            //Storage
             "storage_setting" => "local",
+
             "local_storage_validation" => "jpg,jpeg,png,xlsx,xls,csv,pdf",
             "local_storage_max_upload_size" => "2048000",
             "s3_key" => "",
@@ -1404,9 +1406,7 @@ class Utility extends Model
                     $name = $name;
 
                     if ($settings['storage_setting'] == 'local') {
-
-                        $request->$key_name->move(storage_path($path), $name);
-
+                        $request->$key_name->move(public_path('storage/'.$path), $name);
                         $path = $path . $name;
                     } else if ($settings['storage_setting'] == 'wasabi') {
 

@@ -28,8 +28,8 @@ class CreateUsersTable extends Migration
             $table->float('storage_limit', 20, 2)->default(0.00);
             $table->timestamp('last_login')->nullable();
             $table->integer('is_active')->default('1');
-            $table->boolean('active_status')->default(0);
-            $table->boolean('dark_mode')->default(0);
+            $table->tinyInteger('active_status')->default(0);
+            $table->tinyInteger('dark_mode')->default(0);
             $table->string('messenger_color')->default('#2180f3');
             $table->string('created_by');
             $table->rememberToken();

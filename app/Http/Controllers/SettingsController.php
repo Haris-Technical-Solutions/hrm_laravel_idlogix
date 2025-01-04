@@ -657,12 +657,19 @@ class SettingsController extends Controller
                     return redirect()->back()->with('error', __($path['msg']));
                 }
 
-                \DB::insert(
-                    'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                // \DB::insert(
+                //     'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                //     [
+                //         $logoName,
+                //         'company_logo',
+                //         \Auth::user()->creatorId(),
+                //     ]
+                // );
+                Settings::updateOrCreate(
+                    ['name' => 'company_logo'], // Condition to check for an existing record
                     [
-                        $logoName,
-                        'company_logo',
-                        \Auth::user()->creatorId(),
+                        'value' => $logoName,
+                        'created_by' => \Auth::user()->creatorId(),
                     ]
                 );
             }
@@ -684,12 +691,19 @@ class SettingsController extends Controller
                 $path = Utility::upload_file($request, 'company_logo_light', $logoName, $dir, $validation);
                 // $company_logo_light = !empty($request->company_logo_light) ? $logoName : 'logo-light.png';
 
-                \DB::insert(
-                    'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                // \DB::insert(
+                //     'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                //     [
+                //         $logoName,
+                //         'company_logo_light',
+                //         \Auth::user()->creatorId(),
+                //     ]
+                // );
+                Settings::updateOrCreate(
+                    ['name' => 'company_logo_light'], // Condition to check for an existing record
                     [
-                        $logoName,
-                        'company_logo_light',
-                        \Auth::user()->creatorId(),
+                        'value' => $logoName,
+                        'created_by' => \Auth::user()->creatorId(),
                     ]
                 );
                 if ($path['flag'] == 1) {
@@ -716,12 +730,19 @@ class SettingsController extends Controller
 
                 $company_favicon = !empty($request->company_favicon) ? $favicon : 'favicon.png';
 
-                \DB::insert(
-                    'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                // \DB::insert(
+                //     'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                //     [
+                //         $favicon,
+                //         'company_favicon',
+                //         \Auth::user()->creatorId(),
+                //     ]
+                // );
+                Settings::updateOrCreate(
+                    ['name' => 'company_favicon'], // Condition to check for an existing record
                     [
-                        $favicon,
-                        'company_favicon',
-                        \Auth::user()->creatorId(),
+                        'value' => $favicon,
+                        'created_by' => \Auth::user()->creatorId(),
                     ]
                 );
                 if ($path['flag'] == 1) {
@@ -758,14 +779,22 @@ class SettingsController extends Controller
                 $settings = Utility::settings();
                 foreach ($post as $key => $data) {
                     if (in_array($key, array_keys($settings)) && !empty($data)) {
-                        \DB::insert(
-                            'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                        // \DB::insert(
+                        //     'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
+                        //     [
+                        //         $data,
+                        //         $key,
+                        //         \Auth::user()->creatorId(),
+                        //     ]
+                        // );
+                        Settings::updateOrCreate(
+                            ['name' => $key], // Condition to check for an existing record
                             [
-                                $data,
-                                $key,
-                                \Auth::user()->creatorId(),
+                                'value' => $data,
+                                'created_by' => \Auth::user()->creatorId(),
                             ]
                         );
+
                     }
                 }
             }

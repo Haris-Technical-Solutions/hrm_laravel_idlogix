@@ -1,9 +1,11 @@
 @php
     $company_favicon = \App\Models\Utility::getValByName('company_favicon');
     // $logo = asset(Storage::url('uploads/logo/'));
-    $logo = \App\Models\Utility::get_file('uploads/logo');
-
-    $company_logo = \App\Models\Utility::GetLogo();
+    // $logo = \App\Models\Utility::get_file('uploads/logo');
+    // $logo = \App\Models\Utility::get_file('uploads/logo');
+    // dd($logo);
+    $logo = public_path('uploads/logo/');
+    // $company_logo = \App\Models\Utility::GetLogo();
     $SITE_RTL = \App\Models\Utility::getValByName('SITE_RTL');
     $language = \App\Models\Utility::getValByName('default_language');
 
@@ -20,9 +22,9 @@
     if ($lang == 'ar' || $lang == 'he') {
         $SITE_RTL = 'on';
     }
-    elseif($SITE_RTL == 'on') 
+    elseif($SITE_RTL == 'on')
     {
-        $SITE_RTL = 'on';        
+        $SITE_RTL = 'on';
     }
     else {
         $SITE_RTL = 'off';
@@ -83,7 +85,7 @@
     <meta name="author" content="Rajodiya Infotech" />
 
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ $logo . '/favicon.png' . '?' . time() }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon" />
 
     <!-- font css -->
     <link rel="stylesheet" href="{{ asset('assets/fonts/tabler-icons.min.css') }}">
@@ -146,7 +148,8 @@
                     <div class="container">
                         <div class="navbar-brand">
                             <a href="#">
-                                <img src="{{ $logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo . '?' . time() : 'logo_dark.png' . '?' . time()) }}"
+                                {{-- @dd($company_logo) --}}
+                                <img src="{{(isset($company_logo) && !empty($company_logo) ?  $logo . '/' . $company_logo . '?' . time() : asset('assets/images/logo_dark.png') . '?' . time()) }}"
                                     class="logo" alt="{{ config('app.name', 'HRMGo SaaS') }}" alt="logo"
                                     loading="lazy" style="max-height: 50px;" />
                             </a>

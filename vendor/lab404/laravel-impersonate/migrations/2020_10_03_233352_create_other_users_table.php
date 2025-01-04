@@ -21,8 +21,8 @@ class CreateOtherUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('is_admin')->default(0)->index();
-            $table->boolean('can_be_impersonated')->default(1)->index();
+            $table->tinyInteger('is_admin')->default(0)->index();
+            $table->tinyInteger('can_be_impersonated')->default(1)->index();
             $table->rememberToken();
             $table->timestamps();
         });
