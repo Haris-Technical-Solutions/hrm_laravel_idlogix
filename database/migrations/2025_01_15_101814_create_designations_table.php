@@ -14,9 +14,17 @@ class CreateDesignationsTable extends Migration
     public function up()
     {
         Schema::create('designations', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('department_id');
-            $table->string('name');
+            // $table->bigIncrements('id');
+            // // $table->integer('department_id');
+            // $table->string('name');
+            // $table->integer('created_by');
+            // $table->timestamps();
+
+            $table->id();
+            $table->string('designation_title');
+            $table->foreignId('project_id')->nullable()->constrained('projects');
+            $table->foreignId('client_id')->constrained('clients');
+            $table->tinyInteger('is_active')->default(0);
             $table->integer('created_by');
             $table->timestamps();
         });
