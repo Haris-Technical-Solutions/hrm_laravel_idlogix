@@ -167,6 +167,12 @@
                         class="ti ti-user"></i></span><span class="dash-mtext">{{ __('Designation') }}</span></a>
         </li>
     @endif
+    @if (\Auth::user()->type == 'company')
+    <li class="dash-item">
+        <a href="{{ route('location.index') }}" class="dash-link"><span class="dash-micon"><i
+                    class="ti ti-user"></i></span><span class="dash-mtext">{{ __('Location') }}</span></a>
+    </li>
+@endif
             <!-- employee-->
             {{-- @if (Gate::check('Manage Employee'))
                 @if (\Auth::user()->type == 'employee')

@@ -123,6 +123,12 @@
                         class="ti ti-user"></i></span><span class="dash-mtext"><?php echo e(__('Designation')); ?></span></a>
         </li>
     <?php endif; ?>
+    <?php if(\Auth::user()->type == 'company'): ?>
+    <li class="dash-item">
+        <a href="<?php echo e(route('location.index')); ?>" class="dash-link"><span class="dash-micon"><i
+                    class="ti ti-user"></i></span><span class="dash-mtext"><?php echo e(__('Location')); ?></span></a>
+    </li>
+<?php endif; ?>
             <!-- employee-->
             
             <!-- employee-->

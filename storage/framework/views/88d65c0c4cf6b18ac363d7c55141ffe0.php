@@ -24,10 +24,8 @@
 
 <?php $__env->startSection('content'); ?>
     <div class="row">
-        <div class="col-3">
-            <?php echo $__env->make('layouts.hrm_setup', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-        </div>
-        <div class="col-9">
+        
+        <div class="col-12">
             <div class="card">
                 <div class="card-body table-border-style">
 
@@ -35,25 +33,33 @@
                         <table class="table" id="pc-dt-simple">
                             <thead>
                                 <tr>
-                                    <th><?php echo e(__('Branch')); ?></th>
-                                    <th><?php echo e(__('Department')); ?></th>
+                                    
                                     <th><?php echo e(__('Designation')); ?></th>
+                                    <th><?php echo e(__('Client')); ?></th>
+                                    <th><?php echo e(__('Project')); ?></th>
+                                    <th><?php echo e(__('Active')); ?></th>
+
                                     <th width="200px"><?php echo e(__('Action')); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $__currentLoopData = $designations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $designation): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td><?php echo e(!empty($designation->branch_id) ? $designation->branch->name : '-'); ?>
+                                        
+                                        
+                                        
+                                        <td><?php echo e($designation->designation_title); ?></td>
+                                        <td><?php echo e($designation->project_id); ?></td>
+                                        
+                                        <td><?php echo e(!empty($designation->client_id) ? $designation->client->client_name : '-'); ?>
 
                                         </td>
-                                        <td><?php echo e(!empty($designation->department_id) ? $designation->department->name : '-'); ?>
+                                        <td><?php echo e($designation->is_active == 1 ? 'Active' : 'Inactive'); ?></td>
+ 
 
-                                        </td>
-                                        <td><?php echo e($designation->name); ?></td>
                                         <td class="Action">
                                             <span>
-                                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Edit Designation')): ?>
+                                                
                                                     <div class="action-btn bg-info ms-2">
                                                         <a href="#" class="mx-3 btn btn-sm  align-items-center"
                                                             data-url="<?php echo e(route('designation.edit', $designation->id)); ?>"
@@ -63,7 +69,9 @@
                                                             <i class="ti ti-pencil text-white"></i>
                                                         </a>
                                                     </div>
-                                                <?php endif; ?>
+                                                
+
+                                                
 
                                                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Delete Designation')): ?>
                                                     <div class="action-btn bg-danger ms-2">

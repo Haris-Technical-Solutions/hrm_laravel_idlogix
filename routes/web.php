@@ -111,6 +111,7 @@ use App\Http\Controllers\PaytrController;
 use App\Http\Controllers\ReferralProgramController;
 use App\Http\Controllers\SspayController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ToyyibpayPaymentController;
 use App\Http\Controllers\XenditPaymentController;
@@ -1724,6 +1725,13 @@ Route::group(['middleware' => ['verified']], function () {
 
     // Clinet  Routes
     Route::resource('client', ClientController::class)->middleware(
+        [
+            'auth',
+            'XSS',
+        ]
+    );
+
+    Route::resource('location', LocationController::class)->middleware(
         [
             'auth',
             'XSS',

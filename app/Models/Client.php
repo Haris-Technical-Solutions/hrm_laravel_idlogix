@@ -23,8 +23,16 @@ class Client extends Model
         return self::all();
     }
 
+    public function designations()
+    {
+        return $this->hasMany(Designation::class);
+    }
     public function departments()
     {
         return $this->hasMany(Department::class, 'client_id');
+    }
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
     }
 }

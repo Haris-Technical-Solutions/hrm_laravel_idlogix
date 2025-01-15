@@ -30,7 +30,7 @@
                                 <h5>{{ __('Personal Detail') }}</h5>
                             </div>
                             <div class="card-body">
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="form-group col-md-6">
                                         {!! Form::label('name', __('Name'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>
                                         {!! Form::text('client_name', old('client_name'), [
@@ -66,7 +66,7 @@
                                         @endif
                                             <small class="text-muted">Accepted formats: JPEG, PNG, GIF</small>
                                     </div> --}}
-                                    <div class="form-group col-md-6">
+                                    {{-- <div class="form-group col-md-6">
                                     {!! Form::label('logo', __('Company Logo'), ['class' => 'form-label w-100 mb-2']) !!}
 
                                     <div class="form-group col-md-12 d-flex align-items-center">
@@ -79,9 +79,9 @@
                                             @else
                                                 <p class="ms-2 mb-0">No logo</p>
                                             @endif
-                                        </div>
+                                        </div> --}}
                                         {{-- <small class="text-muted d-block mt-1">Accepted formats: JPEG, PNG, GIF</small> --}}
-                                    </div>
+                                    {{-- </div>
                                     </div>
                                     
                                     
@@ -140,7 +140,137 @@
                                             {!! Form::label('erp_client_id', __('Enabled'), ['class' => 'form-check-label']) !!}
                                         </div>
                                     </div>   
+                                </div> --}} 
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('name', __('Name'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>
+                                        {!! Form::text('client_name', old('client_name'), [
+                                            'class' => 'form-control',
+                                            // 'required' => 'required',
+                                            'placeholder' => 'Enter Client Name',
+                                        ]) !!}
+                                        @error('client_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('address', __('Address'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>
+                                        {!! Form::text('address', old('address'), [
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                            'placeholder' => 'Enter Client Address',
+                                        ]) !!}
+                                        @error('address')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('phoneno', __('Phone'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>
+                                        {!! Form::number('phone_no', old('phone_no'), ['class' => 'form-control', 'placeholder' => 'Enter Client Phone No']) !!}
+                                        @error('phone_no')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('logo', __('Company Logo'), ['class' => 'form-label w-100 mb-2']) !!}
+                                        <div class="form-group col-md-12 d-flex align-items-center">
+                                            <div class="d-flex align-items-center w-100">
+                                                {!! Form::file('logo', ['class' => 'form-control me-2', 'accept' => 'image/*', 'style' => 'width: 75%;']) !!}
+                                                @if (!empty($client->logo_path))
+                                                    <a href="{{ asset('storage/' . $client->logo_path) }}" target="_blank">
+                                                        <img src="{{ asset('storage/' . $client->logo_path) }}" alt="Company Logo" class="img-thumbnail" style="width: 50px; height: 50px;">
+                                                    </a>
+                                                @else
+                                                    <p class="ms-2 mb-0">No logo</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        @error('logo')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('firstname', __('First Name'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>
+                                        {!! Form::text('first_name', old('first_name'), [
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                            'placeholder' => 'Enter First Name',
+                                        ]) !!}
+                                        @error('first_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('lastname', __('Last Name'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>
+                                        {!! Form::text('last_name', old('last_name'), [
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                            'placeholder' => 'Enter Last Name',
+                                        ]) !!}
+                                        @error('last_name')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('phonenumber', __('Phone Number'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>
+                                        {!! Form::number('phone_number', old('phone_number'), [
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                            'placeholder' => 'Enter Phone Number',
+                                        ]) !!}
+                                        @error('phone_number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('email', __('Email'), ['class' => 'form-label']) !!}<span class="text-danger pl-1">*</span>
+                                        {!! Form::email('email', old('email'), [
+                                            'class' => 'form-control',
+                                            'required' => 'required',
+                                            'placeholder' => 'Enter Client Email',
+                                        ]) !!}
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('is_active', __('Is Active'), ['class' => 'form-label']) !!}
+                                        <div class="form-check">
+                                            {!! Form::checkbox('is_active', 1, old('is_active', $client->is_active) ?? false, [
+                                                'class' => 'form-check-input',
+                                                'id' => 'is_active',
+                                            ]) !!}
+                                            {!! Form::label('is_active', __('Active'), ['class' => 'form-check-label']) !!}
+                                        </div>
+                                        @error('is_active')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group col-md-6">
+                                        {!! Form::label('erp_client_id', __('ERP Client'), ['class' => 'form-label']) !!}
+                                        <div class="form-check">
+                                            {!! Form::checkbox('erp_client_id', 1, old('erp_client_id', $client->erp_client_id) ?? false, [
+                                                'class' => 'form-check-input',
+                                                'id' => 'erp_client_id',
+                                            ]) !!}
+                                            {!! Form::label('erp_client_id', __('Enabled'), ['class' => 'form-check-label']) !!}
+                                        </div>
+                                        @error('erp_client_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

@@ -23,10 +23,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-3">
+        {{-- <div class="col-3">
             @include('layouts.hrm_setup')
-        </div>
-        <div class="col-9">
+        </div> --}}
+        <div class="col-12">
             <div class="card">
                 <div class="card-body table-border-style">
 
@@ -34,23 +34,35 @@
                         <table class="table" id="pc-dt-simple">
                             <thead>
                                 <tr>
-                                    <th>{{ __('Branch') }}</th>
+                                    {{-- <th>{{ __('Branch') }}</th>
                                     <th>{{ __('Department') }}</th>
+                                    <th>{{ __('Designation') }}</th> --}}
                                     <th>{{ __('Designation') }}</th>
+                                    <th>{{ __('Client') }}</th>
+                                    <th>{{ __('Project') }}</th>
+                                    <th>{{ __('Active') }}</th>
+
                                     <th width="200px">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($designations as $designation)
                                     <tr>
-                                        <td>{{ !empty($designation->branch_id) ? $designation->branch->name : '-' }}
+                                        {{-- <td>{{ !empty($designation->branch_id) ? $designation->branch->name : '-' }} --}}
+                                        {{-- </td> --}}
+                                        {{-- <td>{{ !empty($designation->department_id) ? $designation->department->name : '-' }}
+                                        </td> --}}
+                                        <td>{{ $designation->designation_title }}</td>
+                                        <td>{{ $designation->project_id }}</td>
+                                        {{-- <td>{{ $designation->client_id }}</td> --}}
+                                        <td>{{ !empty($designation->client_id) ? $designation->client->client_name : '-' }}
                                         </td>
-                                        <td>{{ !empty($designation->department_id) ? $designation->department->name : '-' }}
-                                        </td>
-                                        <td>{{ $designation->name }}</td>
+                                        <td>{{ $designation->is_active == 1 ? 'Active' : 'Inactive' }}</td>
+ 
+
                                         <td class="Action">
                                             <span>
-                                                @can('Edit Designation')
+                                                {{-- @can('Edit Designation') --}}
                                                     <div class="action-btn bg-info ms-2">
                                                         <a href="#" class="mx-3 btn btn-sm  align-items-center"
                                                             data-url="{{ route('designation.edit', $designation->id) }}"
@@ -60,7 +72,16 @@
                                                             <i class="ti ti-pencil text-white"></i>
                                                         </a>
                                                     </div>
-                                                @endcan
+                                                {{-- @endcan --}}
+
+                                                {{-- <div class="action-btn bg-info ms-2">
+                                                    <a href="{{ route('designation.edit', $designation->id) }}"
+                                                        class="mx-3 btn btn-sm  align-items-center"
+                                                        data-bs-toggle="tooltip" title=""
+                                                        data-bs-original-title="{{ __('Edit') }}">
+                                                        <i class="ti ti-pencil text-white"></i>
+                                                    </a>
+                                                </div> --}}
 
                                                 @can('Delete Designation')
                                                     <div class="action-btn bg-danger ms-2">

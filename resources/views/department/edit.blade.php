@@ -64,7 +64,7 @@
                         <h5>{{ __('Department Detail') }}</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="form-group col-md-6">
  
                             <label for="department_name">Department Name<span class="text-danger">*</span></label>
@@ -109,7 +109,83 @@
                             <input type="checkbox" name="is_active" id="is_active" class="form-check-input" value="1" {{ $department->is_active ? 'checked' : '' }}>
                             <label for="is_active" class="form-check-label">Active</label>
                             </div>
+                        </div> --}}
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="department_name">Department Name<span class="text-danger">*</span></label>
+                                <input type="text" name="department_name" id="department_name" class="form-control @error('department_name') is-invalid @enderror" value="{{ old('department_name', $department->department_name) }}" required>
+                                @error('department_name')
+                                    <span class="invalid-feedback d-block">
+                                        <strong class="text-danger">{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        
+                            <div class="form-group col-md-6">
+                                <label for="short_name">Short Name<span class="text-danger">*</span></label>
+                                <input type="text" name="short_name" id="short_name" class="form-control @error('short_name') is-invalid @enderror" value="{{ old('short_name', $department->short_name) }}" >
+                                @error('short_name')
+                                    <span class="invalid-feedback d-block">
+                                        <strong class="text-danger">{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        
+                            <div class="form-group col-md-6">
+                                <label for="hod">HOD</label>
+                                <input type="number" name="hod" id="hod" class="form-control @error('hod') is-invalid @enderror" value="{{ old('hod', $department->hod) }}">
+                                @error('hod')
+                                    <span class="invalid-feedback d-block">
+                                        <strong class="text-danger">{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        
+                            <div class="form-group col-md-6">
+                                <label for="client_id">Client<span class="text-danger">*</span></label>
+                                <select name="client_id" id="client_id" class="form-control @error('client_id') is-invalid @enderror" required>
+                                    <option value="">Select Client</option>
+                                    @foreach($clients as $client)
+                                        <option value="{{ $client->id }}" {{ $department->client_id == $client->id ? 'selected' : '' }}>
+                                            {{ $client->client_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('client_id')
+                                    <span class="invalid-feedback d-block">
+                                        <strong class="text-danger">{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        
+                            <div class="form-group col-md-6">
+                                <label for="project_id">Project<span class="text-danger">*</span></label>
+                                <select name="project_id" id="project_id" class="form-control @error('project_id') is-invalid @enderror">
+                                    <option value="">Select Project</option>
+                                    @foreach($projects as $project)
+                                        <option value="{{ $project->id }}" {{ $department->project_id == $project->id ? 'selected' : '' }}>
+                                            {{ $project->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('project_id')
+                                    <span class="invalid-feedback d-block">
+                                        <strong class="text-danger">{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        
+                            <div class="form-group col-md-6 form-check">
+                                <input type="checkbox" name="is_active" id="is_active" class="form-check-input" value="1" {{ $department->is_active ? 'checked' : '' }}>
+                                <label for="is_active" class="form-check-label">Active</label>
+                                @error('is_active')
+                                    <span class="invalid-feedback d-block">
+                                        <strong class="text-danger">{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
+                        
                         </div>
                        </div>
                 </div>

@@ -9,6 +9,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Project;
+use Illuminate\Support\Facades\Validator;
 
 class DepartmentController extends Controller
 {
@@ -59,7 +60,7 @@ class DepartmentController extends Controller
         //     $department->created_by = \Auth::user()->creatorId();
         //     $department->save();
 
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'department_name' => 'required|string|max:255',
             'short_name'      => 'required|string|max:100',
             'hod'             => 'nullable', // Assuming HOD references a user ID
@@ -67,6 +68,17 @@ class DepartmentController extends Controller
             'project_id'      => 'nullable',
             'is_active'       => 'nullable|boolean',
         ]);
+        
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }
+        
+        // Retrieve validated data
+        $validatedData = $validator->validated();
+        
         // dd($validatedData);
     
         // Storing data directly using the `create` method
@@ -145,7 +157,7 @@ class DepartmentController extends Controller
         // } else {
         //     return redirect()->back()->with('error', __('Permission denied.'));
         // }
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'department_name' => 'required|string|max:255',
             'short_name'      => 'required|string|max:100',
             'hod'             => 'nullable', // Assuming HOD references a user ID
@@ -153,6 +165,17 @@ class DepartmentController extends Controller
             'project_id'      => 'nullable',
             'is_active'       => 'nullable|boolean',
         ]);
+        
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }
+        
+        // Retrieve validated data
+        $validatedData = $validator->validated();
+        
         $department=Department::findOrFail($id);
         $department->update([
             'department_name' => $validatedData['department_name'],

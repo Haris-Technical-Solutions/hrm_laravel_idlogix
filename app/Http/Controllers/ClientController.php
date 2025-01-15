@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use app\Models\Employee;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Client;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -69,19 +70,41 @@ class ClientController extends Controller
         //
         // dd($request->all());
         //  Validate the input data
-    $request->validate([
-        'client_name' => 'required',
-        'address' => 'required',
-        'phone_no' => 'required|string|max:15',
+    // $request->validate([
+    //     'client_name' => 'required',
+    //     'address' => 'required',
+    //     'phone_no' => 'required|string|max:15',
+    //     // 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     'logo' => 'nullable',
+    //     'first_name' => 'required',
+    //     'last_name' => 'required',
+    //     'phone_number' => 'required|string|max:15',
+    //     'email' => 'required|email',
+    //     'is_active' => 'nullable',
+    //     'erp_client_id' => 'nullable',
+    // ]);
+
+    $validator = Validator::make($request->all(), [
+        'client_name'   => 'required',
+        'address'       => 'required',
+        'phone_no'      => 'required|string|max:15',
         // 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'logo' => 'nullable',
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'phone_number' => 'required|string|max:15',
-        'email' => 'required|email',
-        'is_active' => 'nullable',
+        'logo'          => 'nullable',
+        'first_name'    => 'required',
+        'last_name'     => 'required',
+        'phone_number'  => 'required|string|max:15',
+        'email'         => 'required|email',
+        'is_active'     => 'nullable',
         'erp_client_id' => 'nullable',
     ]);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return redirect()->back()
+                         ->withErrors($validator)   // Send validation errors to the view
+                         ->withInput();             // Retain old input values in the form
+    }
+
     // dd($request->all());
     // Handle file upload
     $logoPath = null;
@@ -121,17 +144,18 @@ class ClientController extends Controller
         // dd($filePath); // Outputs the path like "logos/filename.png"
     }
     
-
+    $validatedData = $validator->validated();
+    // dd($validatedData);
     // Save data
     Client::create([
-        'client_name' => $request->input('client_name'),
-        'address' => $request->input('address'),
-        'phone_no' => $request->input('phone_no'),
+        'client_name' => $validatedData['client_name'],
+        'address' => $validatedData['address'],
+        'phone_no' => $validatedData['phone_no'],
         'logo_path' => $logoPath ?? null,
-        'first_name' => $request->input('first_name'),
-        'last_name' => $request->input('last_name'),
-        'phone_number' => $request->input('phone_number'),
-        'email' => $request->input('email'),
+        'first_name' => $validatedData['first_name'],
+        'last_name' => $validatedData['last_name'],
+        'phone_number' => $validatedData['phone_number'],
+        'email' => $validatedData['email'],
         'is_active' => $request->input('is_active', 0), // Default to 0 if not checked
         'erp_client_id' => $request->input('erp_client_id', 0), // Default to 0 if not checked
     ]);
@@ -166,20 +190,40 @@ class ClientController extends Controller
     {
         //
         $client = Client::find($id);
-        $request->validate([
-            'client_name' => 'required',
-            'address' => 'required',
-            'phone_no' => 'required|string|max:15',
+        // $request->validate([
+        //     'client_name' => 'required',
+        //     'address' => 'required',
+        //     'phone_no' => 'required|string|max:15',
+        //     // 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'logo' => 'nullable',
+        //     'first_name' => 'required',
+        //     'last_name' => 'required',
+        //     'phone_number' => 'required|string|max:15',
+        //     'email' => 'required|email',
+        //     'is_active' => 'nullable',
+        //     'erp_client_id' => 'nullable',
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'client_name'   => 'required',
+            'address'       => 'required',
+            'phone_no'      => 'required|string|max:15',
             // 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'logo' => 'nullable',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone_number' => 'required|string|max:15',
-            'email' => 'required|email',
-            'is_active' => 'nullable',
+            'logo'          => 'nullable',
+            'first_name'    => 'required',
+            'last_name'     => 'required',
+            'phone_number'  => 'required|string|max:15',
+            'email'         => 'required|email',
+            'is_active'     => 'nullable',
             'erp_client_id' => 'nullable',
         ]);
-    
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)   // Send validation errors to the view
+                             ->withInput();             // Retain old input values in the form
+        }
+        $validatedData = $validator->validated();
         // Handle file upload
         $logoPath = $client->logo_path; // Retrieve the existing logo path from the database
 
@@ -236,18 +280,18 @@ class ClientController extends Controller
     
         // Save data
         $client->update([
-            'client_name' => $request->input('client_name'),
-            'address' => $request->input('address'),
-            'phone_no' => $request->input('phone_no'),
-            'logo_path' => $logoPath,
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'phone_number' => $request->input('phone_number'),
-            'email' => $request->input('email'),
+            'client_name' => $validatedData['client_name'],
+            'address' => $validatedData['address'],
+            'phone_no' => $validatedData['phone_no'],
+            'logo_path' => $logoPath ?? null,
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'phone_number' => $validatedData['phone_number'],
+            'email' => $validatedData['email'],
             'is_active' => $request->input('is_active', 0), // Default to 0 if not checked
-            'erp_client_id' => $request->input('erp_client_id', 0), // Default to 0 if not checked
-        ]);
-    
+            'erp_client_id' => $request->input('erp_client_id', 0), // Default to 0 if not checked     
+            ]);
+        
         return redirect()->route('client.index')->with('success', 'Client updated successfully.');
     
 
