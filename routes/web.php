@@ -110,6 +110,7 @@ use App\Http\Controllers\PaytabController;
 use App\Http\Controllers\PaytrController;
 use App\Http\Controllers\ReferralProgramController;
 use App\Http\Controllers\SspayController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ToyyibpayPaymentController;
 use App\Http\Controllers\XenditPaymentController;
@@ -1718,4 +1719,24 @@ Route::group(['middleware' => ['verified']], function () {
         Artisan::call('optimize:clear');
         return redirect()->back()->with('success', 'Cache Clear Successfully');
     })->name('config.cache');
+
+
+
+    // Clinet  Routes
+    Route::resource('client', ClientController::class)->middleware(
+        [
+            'auth',
+            'XSS',
+        ]
+    );
+    //employee Import & Export
+    Route::get('import/client/file', [ClientController::class, 'importFile'])->name('client.file.import');
+    Route::post('import/client', [ClientController::class, 'import'])->name('client.import');
+    Route::get('export/client', [ClientController::class, 'export'])->name('client.export');
+        // //employee Import & Export
+        // Route::get('import/employee/file', [EmployeeController::class, 'importFile'])->name('employee.file.import');
+        // Route::post('import/employee', [EmployeeController::class, 'import'])->name('employee.import');
+        // Route::get('export/employee', [EmployeeController::class, 'export'])->name('employee.export');
+
 });
+

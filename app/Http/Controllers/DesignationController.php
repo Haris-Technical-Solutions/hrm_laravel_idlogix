@@ -15,13 +15,17 @@ class DesignationController extends Controller
     public function index()
     {
 
-        if (\Auth::user()->can('Manage Designation')) {
-            $designations = Designation::where('created_by', '=', \Auth::user()->creatorId())->with('department')->get();
+        // if (\Auth::user()->can('Manage Designation')) {
+        //     $designations = Designation::where('created_by', '=', \Auth::user()->creatorId())->with('department')->get();
 
-            return view('designation.index', compact('designations'));
-        } else {
-            return redirect()->back()->with('error', __('Permission denied.'));
-        }
+        //     return view('designation.index', compact('designations'));
+        // } else {
+        //     return redirect()->back()->with('error', __('Permission denied.'));
+        // }
+
+        $designations = Designation::where('created_by', '=', \Auth::user()->creatorId())->with('department')->get();
+
+        return view('designation.index', compact('designations'));
     }
 
     public function create()

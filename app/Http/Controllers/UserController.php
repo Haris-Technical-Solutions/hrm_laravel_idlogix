@@ -27,11 +27,28 @@ use Lab404\Impersonate\Impersonate;
 
 class UserController extends Controller
 {
+    // public function index()
+    // {
+    //     if (\Auth::user()->can('Manage User')) {
+    //         $user = \Auth::user();
+    //         if (\Auth::user()->type == 'super admin') {
+    //             $users = User::where('created_by', '=', $user->creatorId())->where('type', '=', 'company')->with('currentPlan')->get();
+    //             $CountUser = User::where('created_by')->get();
+    //         } else {
+    //             $users = User::where('created_by', '=', $user->creatorId())->where('type', '!=', 'employee')->get();
+    //         }
+
+    //         return view('user.index', compact('users'));
+    //     } else {
+    //         return redirect()->back()->with('error', __('Permission denied.'));
+    //     }
+    // }
     public function index()
     {
         if (\Auth::user()->can('Manage User')) {
             $user = \Auth::user();
-            if (\Auth::user()->type == 'super admin') {
+            if (\Auth::user()->type == 'super admin' || \Auth::user()->type == 'company') {
+                // dd('super admin');  
                 $users = User::where('created_by', '=', $user->creatorId())->where('type', '=', 'company')->with('currentPlan')->get();
                 $CountUser = User::where('created_by')->get();
             } else {
@@ -43,7 +60,6 @@ class UserController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
     public function create()
     {
         if (\Auth::user()->can('Create User')) {

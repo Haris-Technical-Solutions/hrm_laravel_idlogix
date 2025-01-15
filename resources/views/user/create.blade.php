@@ -27,7 +27,7 @@
                 {!! Form::password('password', ['class' => 'form-control', 'required' => 'required','placeholder'=>'Enter password']) !!}
             </div>
         </div> --}}
-        @if (\Auth::user()->type != 'super admin')
+        @if (\Auth::user()->type != 'super admin' && \Auth::user()->type != 'company')
             <div class="form-group">
                 {{ Form::label('role', __('User Role'), ['class' => 'form-label']) }}
                 <div class="form-icon-user">

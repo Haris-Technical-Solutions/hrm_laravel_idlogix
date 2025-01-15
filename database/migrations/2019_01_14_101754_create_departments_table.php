@@ -15,9 +15,15 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('branch_id');
-            $table->string('name');
-            $table->integer('created_by');
+            // $table->integer('branch_id');
+            // $table->string('name');
+            // $table->integer('created_by');
+            $table->string('department_name');
+            $table->string('short_name');
+            $table->string('hod');
+            $table->tinyInteger('is_active')->default(0);
+            $table->foreignId('project_id')->nullable()->constrained('projects');
+            $table->foreignId('client_id')->nullable()->constrained('clients');            
             $table->timestamps();
         });
     }
