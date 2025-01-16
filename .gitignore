@@ -1,3 +1,5 @@
 /.idea
 /.vscode
-/vendor/srmklive
+/vendor
+.env
+composer.lock
