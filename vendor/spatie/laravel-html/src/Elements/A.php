@@ -20,15 +20,4 @@ class A extends BaseElement
     {
         return $this->attribute('href', $href);
     }
-
-    /**
-     * @param string|null $route
-     * @param mixed $params
-     *
-     * @return static
-     */
-    public function route($route, ...$params)
-    {
-        return $this->href(route($route, ...$params));
-    }
 }
