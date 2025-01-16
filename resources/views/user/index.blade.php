@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page-title')
-    @if (\Auth::user()->type == 'super admin')
+    @if (\Auth::user()->type == 'super admin' || \Auth::user()->type == 'company')
         {{ __('Manage Companies') }}
     @else
         {{ __('Manage Users') }}
@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Home') }}</a></li>
-    @if (\Auth::user()->type == 'super admin')
+    @if (\Auth::user()->type == 'super admin' || \Auth::user()->type == 'company')
         <li class="breadcrumb-item">{{ __('Companies') }}</li>
     @else
         <li class="breadcrumb-item">{{ __('Users') }}</li>
@@ -27,7 +27,7 @@
     @endif
 
     @can('Create User')
-        @if (\Auth::user()->type == 'super admin')
+        @if (\Auth::user()->type == 'super admin' || \Auth::user()->type == 'company')
             <a href="#" data-url="{{ route('user.create') }}" data-ajax-popup="true"
                 data-title="{{ __('Create New Company') }}" data-size="md" data-bs-toggle="tooltip" title=""
                 class="btn btn-sm btn-primary" data-bs-original-title="{{ __('Create') }}">
@@ -54,7 +54,7 @@
     <div class="row">
 
         <div class="row">
-            @if (\Auth::user()->type == 'super admin')
+            @if (\Auth::user()->type == 'super admin' || \Auth::user()->type == 'company')
                 @foreach ($users as $user)
                     <div class="col-xl-3">
                         <div class="card  text-center">
@@ -142,7 +142,7 @@
                                 </div>
                                 <h4 class="mt-2">{{ $user->name }}</h4>
                                 <small>{{ $user->email }}</small>
-                                @if (\Auth::user()->type == 'super admin')
+                                @if (\Auth::user()->type == 'super admin' || \Auth::user()->type == 'company')
                                     <div class=" mb-0 mt-3">
                                         <div class=" p-3">
                                             <div class="row">

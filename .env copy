@@ -12,7 +12,7 @@ APP_URL=https://hrm.dev
 # DB_DATABASE=hrm
 # DB_USERNAME=root
 # DB_PASSWORD=
-
+#hello word
 DB_CONNECTION=pgsql
 DB_HOST=localhost
 DB_PORT=5432
